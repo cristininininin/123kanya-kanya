@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lost & Found Management System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ==================================
+     FRONT PAGE / WELCOME SCREEN
+================================== -->
+
+<section id="landingPage" class="landing-page">
+
+    <div class="welcome-content">
+
+        <p class="welcome-label">CAMPUS LOST & FOUND</p>
+
+        <h1>Lost & Found</h1>
+
+        <div class="welcome-divider"></div>
+
+        <p class="welcome-subtitle">
+            Management System
+        </p>
+
+        <p class="welcome-description">
+            A centralized space to report, track, and recover
+            lost belongings within the campus community.
+        </p>
+
+        <button id="goToDashboard" class="welcome-button">
+            Go to Dashboard
+        </button>
+
+        <p class="welcome-footer">
+            KEEPING WHAT MATTERS, WITHIN REACH.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ==================================
+     DASHBOARD AND MAIN SYSTEM
+================================== -->
+
+<div class="app-container" id="appContainer">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <h2>Lost & Found</h2>
+
+            <p>MANAGEMENT SYSTEM</p>
+
+        </div>
+
+        <div class="sidebar-menu">
+
+            <p class="menu-label">MAIN MENU</p>
+
+            <nav>
+
+                <a href="#" class="nav-link active" data-page="dashboard">
+                    Dashboard
+                </a>
+
+                <a href="#" class="nav-link" data-page="records">
+                    Item Records
+                </a>
+
+                <a href="#" class="nav-link" data-page="add">
+                    Add New Report
+                </a>
+
+                <a href="#" class="nav-link" data-page="archive">
+                    Archive
+                </a>
+
+            </nav>
+
+        </div>
+
+        <div class="sidebar-footer">
+            <p>LOST & FOUND SYSTEM</p>
+            <span>Campus Management</span>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <p class="topbar-label">CAMPUS MANAGEMENT</p>
+                <h2 id="pageTitle">Dashboard</h2>
+            </div>
+
+            <div class="admin-info">
+                <span class="admin-indicator"></span>
+                <span>Administrator</span>
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD PAGE -->
+
+        <section id="dashboardPage" class="page active-page">
+
+            <div class="page-intro">
+                <h2>Overview</h2>
+                <p>Here's what's happening with your item records.</p>
+            </div>
+
+            <section class="dashboard-cards">
+
+                <div class="stat-card">
+                    <p class="stat-label">TOTAL ITEMS</p>
+                    <h3 id="totalItems">0</h3>
+                    <p class="stat-description">All active records</p>
+                </div>
+
+                <div class="stat-card">
+                    <p class="stat-label">LOST ITEMS</p>
+                    <h3 id="lostItems">0</h3>
+                    <p class="stat-description">Items reported lost</p>
+                </div>
+
+                <div class="stat-card">
+                    <p class="stat-label">FOUND ITEMS</p>
+                    <h3 id="foundItems">0</h3>
+                    <p class="stat-description">Items reported found</p>
+                </div>
+
+                <div class="stat-card">
+                    <p class="stat-label">CLAIMED ITEMS</p>
+                    <h3 id="claimedItems">0</h3>
+                    <p class="stat-description">Successfully returned</p>
+                </div>
+
+            </section>
+
+
+            <!-- RECENT RECORDS -->
+
+            <section class="records-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <p class="section-label">ACTIVITY</p>
+                        <h2>Recent Item Records</h2>
+                    </div>
+
+                    <button class="text-button" onclick="showPage('records')">
+                        View All
+                    </button>
+
+                </div>
+
+                <div id="recentRecords"></div>
+
+            </section>
+
+        </section>
+
+
+        <!-- ITEM RECORDS PAGE -->
+
+        <section id="recordsPage" class="page">
+
+            <div class="page-intro">
+                <h2>All Item Records</h2>
+                <p>Manage and monitor all reported lost and found items.</p>
+            </div>
+
+            <div class="section-header">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search item name..."
+                    class="search-input"
+                >
+
+                <button class="primary-btn" id="addNewButton">
+                    + Add New Report
+                </button>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Item ID</th>
+                            <th>Item Name</th>
+                            <th>Category</th>
+                            <th>Report Type</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="itemTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADD / EDIT REPORT PAGE -->
+
+        <section id="addPage" class="page">
+
+            <div class="page-intro">
+                <h2>Item Report Form</h2>
+                <p>Provide the necessary details about the item.</p>
+            </div>
+
+            <section class="form-section">
+
+                <h2 id="formTitle">Report a Lost or Found Item</h2>
+
+                <form id="itemForm">
+
+                    <input type="hidden" id="editItemId">
+
+                    <div class="form-group">
+                        <label>Item Name</label>
+                        <input type="text" id="itemName"
+                            placeholder="Enter item name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="category" required>
+                            <option value="">Select category</option>
+                            <option>Electronics</option>
+                            <option>Personal Belongings</option>
+                            <option>School Supplies</option>
+                            <option>Clothing</option>
+                            <option>Accessories</option>
+                            <option>Others</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="description"
+                            placeholder="Describe the item..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="location"
+                            placeholder="Where was it lost or found?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date Reported</label>
+                        <input type="date" id="dateReported" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Report Type</label>
+                        <select id="reportType" required>
+                            <option value="">Select report type</option>
+                            <option value="Lost">Lost</option>
+                            <option value="Found">Found</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="status" required>
+                            <option value="">Select status</option>
+                            <option value="Lost">Lost</option>
+                            <option value="Found">Found</option>
+                            <option value="Claimed">Claimed</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Reporter's Name</label>
+                        <input type="text" id="reporterName"
+                            placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-buttons">
+
+                        <button type="submit" class="primary-btn">
+                            Save Record
+                        </button>
+
+                        <button type="button" class="cancel-btn"
+                            id="cancelButton">
+                            Cancel
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+        </section>
+
+
+        <!-- ARCHIVE PAGE -->
+
+        <section id="archivePage" class="page">
+
+            <div class="page-intro">
+                <h2>Archived Records</h2>
+                <p>View, restore, or permanently remove archived records.</p>
+            </div>
+
+            <section class="records-section">
+
+                <div id="archiveRecords"></div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
